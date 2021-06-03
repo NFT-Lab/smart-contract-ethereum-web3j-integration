@@ -1,1 +1,1 @@
-# smart-contract-web3j-integration
+# Web3j integration for smart contract in Ethereum 
