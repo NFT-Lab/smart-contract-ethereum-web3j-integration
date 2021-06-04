@@ -8,7 +8,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 public interface NFTContractService {
-    NFTID mint(UserTuple artist, FileSystemResource image) throws Exception;
+    NFTID mint(UserTuple artist, FileSystemResource file) throws Exception;
 
     void transfer(
             BigInteger tokenId,
