@@ -12,7 +12,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-//@Component("IPFSPinataService")
 public class IPFSPinataService implements IPFSService {
   private final String baseUrl;
   private final String apiKey;
