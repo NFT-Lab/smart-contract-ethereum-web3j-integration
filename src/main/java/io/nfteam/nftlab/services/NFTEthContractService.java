@@ -12,12 +12,12 @@ import org.web3j.tx.gas.ContractGasProvider;
 import java.math.BigInteger;
 import java.util.List;
 
-//@Component("NFTEthService")
-public class NFTEthService implements NFTService {
+//@Component("NFTEthContractService")
+public class NFTEthContractService implements NFTContractService {
   private final IPFSService ipfsService;
   private final NFTLabStore nftLabStore;
 
-  public NFTEthService(NFTLabStore contractService, IPFSService ipfsService)
+  public NFTEthContractService(NFTLabStore contractService, IPFSService ipfsService)
   {
     this.nftLabStore = contractService;
     this.ipfsService = ipfsService;

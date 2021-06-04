@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class NFTEthServiceTest {
+class NFTEthContractServiceTest {
   @Mock
   private NFTLabStore contractService;
   @Mock
@@ -58,7 +58,7 @@ class NFTEthServiceTest {
 
     when(contractService.mint(any(NFTLabStore.NFTLab.class))).thenReturn(transactionReceiptRemoteFunctionCall);
 
-    NFTEthService service = new NFTEthService(contractService, ipfsService);
+    NFTEthContractService service = new NFTEthContractService(contractService, ipfsService);
 
     NFTID mintedNFT = service.mint(artist, file);
 
@@ -76,7 +76,7 @@ class NFTEthServiceTest {
 
     when(contractService.transfer(any(NFTLabStore.NFTTransaction.class))).thenReturn(transactionReceiptRemoteFunctionCall);
 
-    NFTEthService service = new NFTEthService(contractService, ipfsService);
+    NFTEthContractService service = new NFTEthContractService(contractService, ipfsService);
 
     service.transfer(tokenId, seller, buyer, price, timestamp);
   }
@@ -90,7 +90,7 @@ class NFTEthServiceTest {
       when(contractService)
       .getHistory(tokenId);
 
-    NFTEthService service = new NFTEthService(contractService, ipfsService);
+    NFTEthContractService service = new NFTEthContractService(contractService, ipfsService);
 
     List<NFTLabStore.NFTTransaction> actualHistory = service.getHistory(tokenId);
 
@@ -110,7 +110,7 @@ class NFTEthServiceTest {
       when(contractService)
       .getNFTById(tokenId);
 
-    NFTEthService service = new NFTEthService(contractService, ipfsService);
+    NFTEthContractService service = new NFTEthContractService(contractService, ipfsService);
     NFTLabStore.NFTLab actualNFT = service.getNFTById(tokenId);
 
     assertEquals(artist.wallet(), actualNFT.artist);
@@ -131,7 +131,7 @@ class NFTEthServiceTest {
       when(contractService)
       .getNFTByHash(hash);
 
-    NFTEthService service = new NFTEthService(contractService, ipfsService);
+    NFTEthContractService service = new NFTEthContractService(contractService, ipfsService);
     NFTLabStore.NFTLab actualNFT = service.getNFTByHash(hash);
 
     assertEquals(artist.wallet(), actualNFT.artist);

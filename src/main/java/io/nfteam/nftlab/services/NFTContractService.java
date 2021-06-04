@@ -7,7 +7,7 @@ import org.springframework.core.io.FileSystemResource;
 import java.math.BigInteger;
 import java.util.List;
 
-public interface NFTService {
+public interface NFTContractService {
     NFTID mint(UserTuple artist, FileSystemResource image) throws Exception;
 
     void transfer(
