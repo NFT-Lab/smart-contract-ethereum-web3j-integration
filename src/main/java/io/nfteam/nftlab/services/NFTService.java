@@ -2,12 +2,13 @@ package io.nfteam.nftlab.services;
 
 import io.nfteam.nftlab.contracts.NFTLabStore;
 import io.nfteam.nftlab.services.smartcontract.*;
+import org.springframework.core.io.FileSystemResource;
 
 import java.math.BigInteger;
 import java.util.List;
 
 public interface NFTService {
-    NFTID mint(UserTuple artist, String image) throws Exception;
+    NFTID mint(UserTuple artist, FileSystemResource image) throws Exception;
 
     void transfer(
             BigInteger tokenId,

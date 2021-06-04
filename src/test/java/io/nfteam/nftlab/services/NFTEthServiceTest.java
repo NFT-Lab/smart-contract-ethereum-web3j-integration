@@ -7,19 +7,11 @@ import io.nfteam.nftlab.services.smartcontract.NFTID;
 import io.nfteam.nftlab.services.smartcontract.UserTuple;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.web3j.crypto.Credentials;
-import org.web3j.protocol.Web3j;
+import org.springframework.core.io.FileSystemResource;
 import org.web3j.protocol.core.RemoteFunctionCall;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
-import org.web3j.tx.gas.ContractGasProvider;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -28,9 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
 @ExtendWith(MockitoExtension.class)
-@PrepareForTest({NFTLabStore.class})
 class NFTEthServiceTest {
   @Mock
   private NFTLabStore contractService;
@@ -38,6 +28,8 @@ class NFTEthServiceTest {
   private IPFSService ipfsService;
   @Mock
   private IPFSResponses.UploadImage uploadImage;
+  @Mock
+  private FileSystemResource file;
 
   @Mock
   private RemoteFunctionCall<BigInteger> bigIntegerRemoteFunctionCall;
@@ -54,13 +46,11 @@ class NFTEthServiceTest {
   @Test
   public void mint_ValidNFT_HashAndIdOfMintedNFT() throws Exception {
     UserTuple artist = new UserTuple("0x51b1D3246fc4D665A75F77599c82419ab11dEAc4", BigInteger.valueOf(1));
-    String image = "path_to_file";
     String hash = "QmeK3GCfbMzRp3FW3tWZCg5WVZKM52XZrk6WCTLXWwALbq";
-    String timestamp = "2021";
     BigInteger tokenId = BigInteger.valueOf(1);
 
     when(uploadImage.getHash()).thenReturn(hash);
-    when(ipfsService.uploadImage(image)).thenReturn(uploadImage);
+    when(ipfsService.uploadImage(file)).thenReturn(uploadImage);
 
     doReturn(when(bigIntegerRemoteFunctionCall.send()).thenReturn(tokenId).getMock()).
       when(contractService)
@@ -70,7 +60,7 @@ class NFTEthServiceTest {
 
     NFTEthService service = new NFTEthService(contractService, ipfsService);
 
-    NFTID mintedNFT = service.mint(artist, image);
+    NFTID mintedNFT = service.mint(artist, file);
 
     assertEquals(hash, mintedNFT.hash());
     assertEquals(tokenId, mintedNFT.tokenId());
