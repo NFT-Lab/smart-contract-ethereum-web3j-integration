@@ -1,4 +1,4 @@
-package io.nfteam.nftlab.services.smartcontract;
+package io.nfteam.nftlab.contracts;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -69,7 +69,7 @@ public class NFTLabETHContractService
         final String privateKey = dotenv.get("ETHEREUM_PRIVATE_KEY");
         final Credentials credentials = Credentials.create(privateKey);
         final ContractGasProvider contractGasProvider = new StaticGasProvider(GAS_PRICE, GAS_LIMIT);
-        
+
         return NFTLabStore.deploy(
             web3j,
             credentials,

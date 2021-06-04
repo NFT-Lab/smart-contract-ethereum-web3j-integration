@@ -7,9 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PinataUploadImageTest {
   @Test
   public void defaultConstructor() {
-    String expectedHash = "";
     int expectedPinSize = 0;
-    String expectedTimestamp = "";
 
     PinataUploadImage uploadImage = new PinataUploadImage();
 
