@@ -12,11 +12,11 @@ import org.web3j.tx.gas.ContractGasProvider;
 import java.math.BigInteger;
 import java.util.List;
 
-public class NFTEthContractService implements NFTContractService {
+public class NFTETHContractService implements NFTContractService {
   private final IPFSService ipfsService;
   private final NFTLabStore nftLabStore;
 
-  public NFTEthContractService(NFTLabStore contractService, IPFSService ipfsService)
+  public NFTETHContractService(NFTLabStore contractService, IPFSService ipfsService)
   {
     this.nftLabStore = contractService;
     this.ipfsService = ipfsService;
