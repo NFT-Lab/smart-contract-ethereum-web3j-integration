@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.web.multipart.MultipartFile;
 import org.web3j.protocol.core.RemoteFunctionCall;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
@@ -29,7 +31,7 @@ class NFTETHContractServiceTest {
   @Mock
   private IPFSResponses.UploadImage uploadImage;
   @Mock
-  private FileSystemResource file;
+  private ByteArrayResource file;
 
   @Mock
   private RemoteFunctionCall<BigInteger> bigIntegerRemoteFunctionCall;
