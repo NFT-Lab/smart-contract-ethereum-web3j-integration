@@ -4,7 +4,9 @@ import io.nfteam.nftlab.contracts.NFTLabStore;
 import io.nfteam.nftlab.services.ipfs.IPFSResponses;
 import io.nfteam.nftlab.services.ipfs.IPFSService;
 import io.nfteam.nftlab.services.smartcontract.*;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.web.multipart.MultipartFile;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.tx.gas.ContractGasProvider;
@@ -22,7 +24,7 @@ public class NFTETHContractService implements NFTContractService {
     this.ipfsService = ipfsService;
   }
 
-  public NFTID mint(UserTuple artist, FileSystemResource file) throws Exception
+  public NFTID mint(UserTuple artist, ByteArrayResource file) throws Exception
   {
     IPFSResponses.UploadImage uploadedImage = ipfsService.uploadImage(file);
     String hash = uploadedImage.getHash();
