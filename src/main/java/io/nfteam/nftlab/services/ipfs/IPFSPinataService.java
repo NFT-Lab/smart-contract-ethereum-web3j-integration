@@ -2,8 +2,7 @@ package io.nfteam.nftlab.services.ipfs;
 
 import java.io.IOException;
 
-import io.github.cdimascio.dotenv.Dotenv;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -25,7 +24,7 @@ public class IPFSPinataService implements IPFSService {
     this.restTemplate = restTemplate;
   }
 
-  public IPFSResponses.UploadImage uploadImage(FileSystemResource file) throws IOException
+  public IPFSResponses.UploadImage uploadImage(ByteArrayResource file) throws IOException
   {
     HttpHeaders headers = getHeader();
 

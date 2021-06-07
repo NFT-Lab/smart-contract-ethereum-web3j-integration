@@ -7,7 +7,7 @@
 
     <groupId>io.nfteam.nftlab</groupId>
     <artifactId>smart-contract-ethereum-web3j-integration</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
@@ -59,6 +59,12 @@
           <groupId>org.springframework</groupId>
           <artifactId>spring-context</artifactId>
           <version>5.3.7</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-mock</artifactId>
+          <version>2.0.8</version>
+          <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -128,7 +134,7 @@
       </plugins>
     </pluginManagement>
   </build>
-  
+
   <distributionManagement>
     <repository>
       <id>github</id>
