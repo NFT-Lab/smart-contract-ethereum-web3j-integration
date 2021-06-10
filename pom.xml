@@ -7,7 +7,7 @@
 
     <groupId>io.nfteam.nftlab</groupId>
     <artifactId>smart-contract-ethereum-web3j-integration</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
