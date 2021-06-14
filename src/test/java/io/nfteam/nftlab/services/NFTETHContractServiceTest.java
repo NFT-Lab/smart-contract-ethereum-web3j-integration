@@ -10,8 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.web.multipart.MultipartFile;
 import org.web3j.protocol.core.RemoteFunctionCall;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
@@ -54,8 +52,8 @@ class NFTETHContractServiceTest {
     when(uploadImage.getHash()).thenReturn(hash);
     when(ipfsService.uploadImage(file)).thenReturn(uploadImage);
 
-    doReturn(when(bigIntegerRemoteFunctionCall.send()).thenReturn(tokenId).getMock()).
-      when(contractService)
+    doReturn(when(bigIntegerRemoteFunctionCall.send()).thenReturn(tokenId).getMock())
+      .when(contractService)
       .getTokenId(hash);
 
     when(contractService.mint(any(NFTLabStore.NFTLab.class))).thenReturn(transactionReceiptRemoteFunctionCall);
