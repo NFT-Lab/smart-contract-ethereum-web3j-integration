@@ -54,8 +54,8 @@ class NFTETHContractServiceTest {
     when(uploadImage.getHash()).thenReturn(hash);
     when(ipfsService.uploadImage(file)).thenReturn(uploadImage);
 
-    doReturn(when(bigIntegerRemoteFunctionCall.send()).thenReturn(tokenId).getMock()).
-      when(contractService)
+    doReturn(when(bigIntegerRemoteFunctionCall.send()).thenReturn(tokenId).getMock())
+      .when(contractService)
       .getTokenId(hash);
 
     when(contractService.mint(any(NFTLabStore.NFTLab.class))).thenReturn(transactionReceiptRemoteFunctionCall);
