@@ -1,8 +1,9 @@
 package io.nfteam.nftlab.services;
 
-import io.nfteam.nftlab.contracts.NFTLabStore;
+import io.nfteam.nftlab.contracts.NFTLabStoreHotmoka;
 import io.nfteam.nftlab.services.ipfs.IPFSResponses;
 import io.nfteam.nftlab.services.ipfs.IPFSService;
+import io.nfteam.nftlab.services.smartcontract.INFTTransaction;
 import io.nfteam.nftlab.services.smartcontract.NFTID;
 import io.nfteam.nftlab.services.smartcontract.UserTuple;
 import org.springframework.core.io.ByteArrayResource;
@@ -32,17 +33,17 @@ public class NFTDummyContractService implements NFTContractService {
   { }
 
   @Override
-  public List getHistory(BigInteger tokenId) throws Exception {
+  public List<INFTTransaction> getHistory(BigInteger tokenId) throws Exception {
     return null;
   }
 
   @Override
-  public NFTLabStore.NFTLab getNFTById(BigInteger tokenId) throws Exception {
+  public NFTLabStoreHotmoka.NFTLab getNFTById(BigInteger tokenId) throws Exception {
     return null;
   }
 
   @Override
-  public NFTLabStore.NFTLab getNFTByHash(String hash) throws Exception {
+  public NFTLabStoreHotmoka.NFTLab getNFTByHash(String hash) throws Exception {
     return null;
   }
 }

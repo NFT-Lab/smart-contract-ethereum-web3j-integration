@@ -1,6 +1,6 @@
 package io.nfteam.nftlab.services;
 
-import io.nfteam.nftlab.contracts.NFTLabStore;
+import io.nfteam.nftlab.contracts.NFTLabStoreEthereum;
 import io.nfteam.nftlab.services.ipfs.IPFSResponses;
 import io.nfteam.nftlab.services.ipfs.IPFSService;
 import io.nfteam.nftlab.services.smartcontract.*;
@@ -14,11 +14,11 @@ import java.util.List;
 
 public class NFTETHContractService implements NFTContractService {
   private final IPFSService ipfsService;
-  private final NFTLabStore nftLabStore;
+  private final NFTLabStoreEthereum nftLabStoreEthereum;
 
-  public NFTETHContractService(NFTLabStore contractService, IPFSService ipfsService)
+  public NFTETHContractService(NFTLabStoreEthereum contractService, IPFSService ipfsService)
   {
-    this.nftLabStore = contractService;
+    this.nftLabStoreEthereum = contractService;
     this.ipfsService = ipfsService;
   }
 
@@ -28,10 +28,10 @@ public class NFTETHContractService implements NFTContractService {
     String hash = uploadedImage.getHash();
     String timestamp = uploadedImage.getTimestamp();
 
-    NFTLabStore.NFTLab newNft = new NFTLabStore.NFTLab(artist.wallet(), artist.id(), hash, timestamp);
+    NFTLabStoreEthereum.NFTLab newNft = new NFTLabStoreEthereum.NFTLab(artist.wallet(), artist.id(), hash, timestamp);
 
-    nftLabStore.mint(newNft).send();
-    BigInteger tokenId = nftLabStore.getTokenId(newNft.hash).send();
+    nftLabStoreEthereum.mint(newNft).send();
+    BigInteger tokenId = nftLabStoreEthereum.getTokenId(newNft.hash).send();
 
     return new NFTID(hash, tokenId);
   }
@@ -43,30 +43,30 @@ public class NFTETHContractService implements NFTContractService {
           String price,
           String timestamp) throws Exception
   {
-    NFTLabStore.NFTTransaction transaction = new NFTLabStore.NFTTransaction(tokenId, seller.wallet(), seller.id(), buyer.wallet(), buyer.id(), price, timestamp);
+    NFTLabStoreEthereum.NFTTransaction transaction = new NFTLabStoreEthereum.NFTTransaction(tokenId, seller.wallet(), seller.id(), buyer.wallet(), buyer.id(), price, timestamp);
 
-    nftLabStore.transfer(transaction).send();
+    nftLabStoreEthereum.transfer(transaction).send();
   }
 
-  public List<NFTLabStore.NFTTransaction> getHistory(BigInteger tokenId) throws Exception {
-    return nftLabStore.getHistory(tokenId).send();
+  public List getHistory(BigInteger tokenId) throws Exception {
+    return nftLabStoreEthereum.getHistory(tokenId).send();
   }
 
-  public NFTLabStore.NFTLab getNFTById(BigInteger tokenId) throws Exception {
-    return this.nftLabStore.getNFTById(tokenId).send();
+  public NFTLabStoreEthereum.NFTLab getNFTById(BigInteger tokenId) throws Exception {
+    return this.nftLabStoreEthereum.getNFTById(tokenId).send();
   }
 
-  public NFTLabStore.NFTLab getNFTByHash(String hash) throws Exception {
-    return this.nftLabStore.getNFTByHash(hash).send();
+  public NFTLabStoreEthereum.NFTLab getNFTByHash(String hash) throws Exception {
+    return this.nftLabStoreEthereum.getNFTByHash(hash).send();
   }
 
-  public static NFTLabStore deploy(
+  public static NFTLabStoreEthereum deploy(
     Web3j web3j,
     Credentials credentials,
     ContractGasProvider contractGasProvider,
     String name,
     String symbol) throws Exception {
-    return NFTLabStore.deploy(
+    return NFTLabStoreEthereum.deploy(
       web3j,
       credentials,
       contractGasProvider,
@@ -75,8 +75,8 @@ public class NFTETHContractService implements NFTContractService {
     ).send();
   }
 
-  public static NFTLabStore loadContract(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider){
-    return NFTLabStore.load(
+  public static NFTLabStoreEthereum load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider){
+    return NFTLabStoreEthereum.load(
       contractAddress,
       web3j,
       credentials,
