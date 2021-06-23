@@ -22,7 +22,7 @@ class NFTDummyContractServiceTest {
   @Mock
   private IPFSService ipfsService;
   @Mock
-  private IPFSResponses.UploadImage uploadImage;
+  private IPFSResponses.Uploaded uploaded;
   @Mock
   private ByteArrayResource file;
 
@@ -32,8 +32,8 @@ class NFTDummyContractServiceTest {
     String expectedHash = "QmeK3GCfbMzRp3FW3tWZCg5WVZKM52XZrk6WCTLXWwALbq";
     BigInteger expectedTokenId = BigInteger.valueOf(-1);
 
-    when(uploadImage.getHash()).thenReturn(expectedHash);
-    when(ipfsService.uploadImage(file)).thenReturn(uploadImage);
+    when(uploaded.getHash()).thenReturn(expectedHash);
+    when(ipfsService.upload(file)).thenReturn(uploaded);
 
     NFTContractService service = new NFTDummyContractService(ipfsService);
 

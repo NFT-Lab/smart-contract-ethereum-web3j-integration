@@ -22,7 +22,7 @@ public class NFTHotmokaContractService implements NFTContractService {
 
   @Override
   public NFTID mint(UserTuple artist, ByteArrayResource file) throws Exception {
-    IPFSResponses.UploadImage uploadedImage = ipfsService.uploadImage(file);
+    IPFSResponses.Uploaded uploadedImage = ipfsService.upload(file);
 
     String hash = uploadedImage.getHash();
     String timestamp = uploadedImage.getTimestamp();

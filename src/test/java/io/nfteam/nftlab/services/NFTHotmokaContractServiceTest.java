@@ -31,7 +31,7 @@ class NFTHotmokaContractServiceTest {
   @Mock
   private IPFSService ipfsService;
   @Mock
-  private IPFSResponses.UploadImage uploadImage;
+  private IPFSResponses.Uploaded uploaded;
   @Mock
   private ByteArrayResource file;
 
@@ -54,9 +54,9 @@ class NFTHotmokaContractServiceTest {
     String timestamp = "2019";
     BigInteger tokenId = BigInteger.valueOf(1);
 
-    when(uploadImage.getHash()).thenReturn(hash);
-    when(uploadImage.getTimestamp()).thenReturn(timestamp);
-    when(ipfsService.uploadImage(file)).thenReturn(uploadImage);
+    when(uploaded.getHash()).thenReturn(hash);
+    when(uploaded.getTimestamp()).thenReturn(timestamp);
+    when(ipfsService.upload(file)).thenReturn(uploaded);
 
     when(contractService.mint(any(String.class), any(BigInteger.class), any(String.class), any(String.class)))
       .thenReturn(tokenId);

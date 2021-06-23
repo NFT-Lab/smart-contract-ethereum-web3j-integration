@@ -27,7 +27,7 @@ class NFTETHContractServiceTest {
   @Mock
   private IPFSService ipfsService;
   @Mock
-  private IPFSResponses.UploadImage uploadImage;
+  private IPFSResponses.Uploaded uploaded;
   @Mock
   private ByteArrayResource file;
 
@@ -49,8 +49,8 @@ class NFTETHContractServiceTest {
     String hash = "QmeK3GCfbMzRp3FW3tWZCg5WVZKM52XZrk6WCTLXWwALbq";
     BigInteger tokenId = BigInteger.valueOf(1);
 
-    when(uploadImage.getHash()).thenReturn(hash);
-    when(ipfsService.uploadImage(file)).thenReturn(uploadImage);
+    when(uploaded.getHash()).thenReturn(hash);
+    when(ipfsService.upload(file)).thenReturn(uploaded);
 
     doReturn(when(bigIntegerRemoteFunctionCall.send()).thenReturn(tokenId).getMock())
       .when(contractService)

@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PinataUploadImageTest {
+class PinataUploadedTest {
   @Test
   public void defaultConstructor() {
     int expectedPinSize = 0;
 
-    PinataUploadImage uploadImage = new PinataUploadImage();
+    PinataUploaded uploadImage = new PinataUploaded();
 
     assertNull(uploadImage.getHash());
     assertEquals(expectedPinSize, uploadImage.getSize());
@@ -20,7 +20,7 @@ class PinataUploadImageTest {
   public void getHash() {
     String expectedHash = "QmeK3GCfbMzRp3FW3tWZCg5WVZKM52XZrk6WCTLXWwALbq";
 
-    PinataUploadImage uploadImage = new PinataUploadImage();
+    PinataUploaded uploadImage = new PinataUploaded();
 
     uploadImage.IpfsHash = expectedHash;
 
@@ -31,7 +31,7 @@ class PinataUploadImageTest {
   public void getSize() {
     int expectedPinSize = 12;
 
-    PinataUploadImage uploadImage = new PinataUploadImage();
+    PinataUploaded uploadImage = new PinataUploaded();
 
     uploadImage.PinSize = expectedPinSize;
 
@@ -42,7 +42,7 @@ class PinataUploadImageTest {
   public void getTimestamp() {
     String expectedTimestamp = "2021";
 
-    PinataUploadImage uploadImage = new PinataUploadImage();
+    PinataUploaded uploadImage = new PinataUploaded();
 
     uploadImage.Timestamp = expectedTimestamp;
 
@@ -57,7 +57,7 @@ class PinataUploadImageTest {
 
     String expectedToString =  hash + " - " + pinSize + " - " + timestamp;
 
-    PinataUploadImage uploadImage = new PinataUploadImage();
+    PinataUploaded uploadImage = new PinataUploaded();
 
     uploadImage.IpfsHash = hash;
     uploadImage.PinSize = pinSize;

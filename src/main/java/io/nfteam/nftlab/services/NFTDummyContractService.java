@@ -21,7 +21,7 @@ public class NFTDummyContractService implements NFTContractService {
 
   @Override
   public NFTID mint(UserTuple artist, ByteArrayResource file) throws Exception {
-    IPFSResponses.UploadImage uploadedImage = ipfsService.uploadImage(file);
+    IPFSResponses.Uploaded uploadedImage = ipfsService.upload(file);
     String hash = uploadedImage.getHash();
 
     return new NFTID(hash, BigInteger.valueOf(-1));

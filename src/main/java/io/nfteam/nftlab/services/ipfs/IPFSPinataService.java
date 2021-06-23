@@ -24,7 +24,7 @@ public class IPFSPinataService implements IPFSService {
     this.restTemplate = restTemplate;
   }
 
-  public IPFSResponses.UploadImage uploadImage(ByteArrayResource file) throws IOException
+  public IPFSResponses.Uploaded upload(ByteArrayResource file) throws IOException
   {
     HttpHeaders headers = getHeader();
 
@@ -34,8 +34,8 @@ public class IPFSPinataService implements IPFSService {
 
     HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-    ResponseEntity<PinataUploadImage> response = restTemplate
-      .postForEntity(baseUrl + "/pinning/pinFileToIPFS", requestEntity, PinataUploadImage.class);
+    ResponseEntity<PinataUploaded> response = restTemplate
+      .postForEntity(baseUrl + "/pinning/pinFileToIPFS", requestEntity, PinataUploaded.class);
 
     return response.getBody();
   }

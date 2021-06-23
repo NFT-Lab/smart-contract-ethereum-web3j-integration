@@ -6,12 +6,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -29,7 +27,7 @@ class IPFSPinataServiceTest {
   private ByteArrayResource file;
 
   @Mock
-  private ResponseEntity<PinataUploadImage> pinataUploadImageResponseEntity;
+  private ResponseEntity<PinataUploaded> pinataUploadImageResponseEntity;
 
   @Test
   public void defaultConstructor() {
@@ -50,7 +48,7 @@ class IPFSPinataServiceTest {
     int pinSize = 12;
     String timestamp = "2021";
 
-    PinataUploadImage expectedUploadedImage = new PinataUploadImage();
+    PinataUploaded expectedUploadedImage = new PinataUploaded();
 
     expectedUploadedImage.IpfsHash = hash;
     expectedUploadedImage.PinSize = pinSize;
@@ -62,7 +60,7 @@ class IPFSPinataServiceTest {
 
     IPFSPinataService ipfsPinataService = new IPFSPinataService(baseUrl, apiKey, secretKey, restTemplate);
 
-    IPFSResponses.UploadImage actualUploadedImage = ipfsPinataService.uploadImage(file);
+    IPFSResponses.Uploaded actualUploadedImage = ipfsPinataService.upload(file);
 
     assertEquals(expectedUploadedImage.getHash(), actualUploadedImage.getHash());
     assertEquals(expectedUploadedImage.getSize(), actualUploadedImage.getSize());

@@ -1,6 +1,6 @@
 package io.nfteam.nftlab.services.ipfs;
 
-class PinataUploadImage implements IPFSResponses.UploadImage {
+class PinataUploaded implements IPFSResponses.Uploaded {
     public String IpfsHash;
     public int PinSize;
     public String Timestamp;
