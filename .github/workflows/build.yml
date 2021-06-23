@@ -1,4 +1,4 @@
-name: Build Web3J integration
+name: Build integration
 
 on:
   push:
