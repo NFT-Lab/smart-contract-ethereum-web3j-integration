@@ -1,6 +1,7 @@
 package io.nfteam.nftlab.services;
 
-import io.nfteam.nftlab.contracts.NFTLabStore;
+import io.nfteam.nftlab.contracts.NFTLabStoreEthereum;
+import io.nfteam.nftlab.contracts.NFTLabStoreHotmoka;
 import io.nfteam.nftlab.services.smartcontract.*;
 import org.springframework.core.io.ByteArrayResource;
 
@@ -17,9 +18,9 @@ public interface NFTContractService {
             String price,
             String timestamp) throws Exception;
 
-    List getHistory(BigInteger tokenId) throws Exception;
+    List<INFTTransaction> getHistory(BigInteger tokenId) throws Exception;
 
-    NFTLabStore.NFTLab getNFTById(BigInteger tokenId) throws Exception;
+    INFTLab getNFTById(BigInteger tokenId) throws Exception;
 
-    NFTLabStore.NFTLab getNFTByHash(String hash) throws Exception;
+    INFTLab getNFTByHash(String hash) throws Exception;
 }

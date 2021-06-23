@@ -1,4 +1,4 @@
-name: Build Web3J integration
+name: Build integration
 
 on:
   push:
@@ -53,6 +53,15 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+          
+      - uses: actions/checkout@v2
+        with:
+          repository: Hotmoka/Hotmoka
+          path: './hotmoka'
+          
+      - name: Install Hotmoka
+        run: |
+          mvn install -f ./hotmoka/pom.xml --projects io-hotmoka-takamaka
 
       - name: Build and report code coverage
         run: mvn -B clean install jacoco:report coveralls:report

@@ -42,3 +42,11 @@ buildNumber.properties
 
 ### Smart contract ###
 out/
+
+### Takamaka tests """
+/chain/
+*.tex
+*.pdf
+*.aux
+*.log
+/mytestnet/

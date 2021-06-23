@@ -1,6 +1,6 @@
 package io.nfteam.nftlab.services;
 
-import io.nfteam.nftlab.contracts.NFTLabStore;
+import io.nfteam.nftlab.contracts.NFTLabStoreEthereum;
 import io.nfteam.nftlab.services.ipfs.IPFSResponses;
 import io.nfteam.nftlab.services.ipfs.IPFSService;
 import io.nfteam.nftlab.services.smartcontract.NFTID;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class NFTETHContractServiceTest {
   @Mock
-  private NFTLabStore contractService;
+  private NFTLabStoreEthereum contractService;
   @Mock
   private IPFSService ipfsService;
   @Mock
@@ -41,7 +41,7 @@ class NFTETHContractServiceTest {
   private RemoteFunctionCall<List> listRemoteFunctionCall;
 
   @Mock
-  private RemoteFunctionCall<NFTLabStore.NFTLab> nftLabRemoteFunctionCall;
+  private RemoteFunctionCall<NFTLabStoreEthereum.NFTLab> nftLabRemoteFunctionCall;
 
   @Test
   public void mint_ValidNFT_HashAndIdOfMintedNFT() throws Exception {
@@ -56,7 +56,7 @@ class NFTETHContractServiceTest {
       .when(contractService)
       .getTokenId(hash);
 
-    when(contractService.mint(any(NFTLabStore.NFTLab.class))).thenReturn(transactionReceiptRemoteFunctionCall);
+    when(contractService.mint(any(NFTLabStoreEthereum.NFTLab.class))).thenReturn(transactionReceiptRemoteFunctionCall);
 
     NFTETHContractService service = new NFTETHContractService(contractService, ipfsService);
 
@@ -74,7 +74,7 @@ class NFTETHContractServiceTest {
     String price = "1 ETH";
     String timestamp = "2021";
 
-    when(contractService.transfer(any(NFTLabStore.NFTTransaction.class))).thenReturn(transactionReceiptRemoteFunctionCall);
+    when(contractService.transfer(any(NFTLabStoreEthereum.NFTTransaction.class))).thenReturn(transactionReceiptRemoteFunctionCall);
 
     NFTETHContractService service = new NFTETHContractService(contractService, ipfsService);
 
@@ -84,7 +84,7 @@ class NFTETHContractServiceTest {
   @Test
   public void getHistory() throws Exception {
     BigInteger tokenId = BigInteger.valueOf(1);
-    List<NFTLabStore.NFTTransaction> expectedHistory = new ArrayList<>();
+    List<NFTLabStoreEthereum.NFTTransaction> expectedHistory = new ArrayList<>();
 
     doReturn(when(listRemoteFunctionCall.send()).thenReturn(expectedHistory).getMock()).
       when(contractService)
@@ -92,7 +92,7 @@ class NFTETHContractServiceTest {
 
     NFTETHContractService service = new NFTETHContractService(contractService, ipfsService);
 
-    List<NFTLabStore.NFTTransaction> actualHistory = service.getHistory(tokenId);
+    List<NFTLabStoreEthereum.NFTTransaction> actualHistory = service.getHistory(tokenId);
 
     assertTrue(expectedHistory.size() == actualHistory.size() && expectedHistory.containsAll(actualHistory) && expectedHistory.containsAll(actualHistory));
   }
@@ -104,14 +104,14 @@ class NFTETHContractServiceTest {
     String hash = "QmeK3GCfbMzRp3FW3tWZCg5WVZKM52XZrk6WCTLXWwALbq";
     String timestamp = "2021";
 
-    NFTLabStore.NFTLab expectedNFT = new NFTLabStore.NFTLab(artist.wallet(), artist.id(), hash, timestamp);
+    NFTLabStoreEthereum.NFTLab expectedNFT = new NFTLabStoreEthereum.NFTLab(artist.wallet(), artist.id(), hash, timestamp);
 
     doReturn(when(nftLabRemoteFunctionCall.send()).thenReturn(expectedNFT).getMock()).
       when(contractService)
       .getNFTById(tokenId);
 
     NFTETHContractService service = new NFTETHContractService(contractService, ipfsService);
-    NFTLabStore.NFTLab actualNFT = service.getNFTById(tokenId);
+    NFTLabStoreEthereum.NFTLab actualNFT = service.getNFTById(tokenId);
 
     assertEquals(artist.wallet(), actualNFT.artist);
     assertEquals(artist.id(), actualNFT.artistId);
@@ -125,14 +125,14 @@ class NFTETHContractServiceTest {
     String hash = "QmeK3GCfbMzRp3FW3tWZCg5WVZKM52XZrk6WCTLXWwALbq";
     String timestamp = "2021";
 
-    NFTLabStore.NFTLab expectedNFT = new NFTLabStore.NFTLab(artist.wallet(), artist.id(), hash, timestamp);
+    NFTLabStoreEthereum.NFTLab expectedNFT = new NFTLabStoreEthereum.NFTLab(artist.wallet(), artist.id(), hash, timestamp);
 
     doReturn(when(nftLabRemoteFunctionCall.send()).thenReturn(expectedNFT).getMock()).
       when(contractService)
       .getNFTByHash(hash);
 
     NFTETHContractService service = new NFTETHContractService(contractService, ipfsService);
-    NFTLabStore.NFTLab actualNFT = service.getNFTByHash(hash);
+    NFTLabStoreEthereum.NFTLab actualNFT = service.getNFTByHash(hash);
 
     assertEquals(artist.wallet(), actualNFT.artist);
     assertEquals(artist.id(), actualNFT.artistId);

@@ -6,8 +6,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.nfteam.nftlab</groupId>
-    <artifactId>smart-contract-ethereum-web3j-integration</artifactId>
-    <version>1.4</version>
+    <artifactId>smart-contract-integration</artifactId>
+    <version>1.5</version>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
@@ -26,11 +26,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>5.2.2.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.cdimascio</groupId>
-            <artifactId>dotenv-java</artifactId>
-            <version>2.2.0</version>
         </dependency>
         <dependency>
           <groupId>org.junit.jupiter</groupId>
@@ -55,6 +50,11 @@
           <version>3.7.7</version>
           <scope>test</scope>
         </dependency>
+      <dependency>
+        <groupId>io.nfteam.nftlab</groupId>
+        <artifactId>smart-contract-hotmoka</artifactId>
+        <version>1.0</version>
+      </dependency>
     </dependencies>
 
   <build>
@@ -128,7 +128,7 @@
     <repository>
       <id>github</id>
       <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/NFT-Lab/smart-contract-ethereum-web3j-integration</url>
+      <url>https://maven.pkg.github.com/NFT-Lab/smart-contract-integration</url>
     </repository>
   </distributionManagement>
 </project>

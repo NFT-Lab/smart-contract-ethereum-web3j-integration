@@ -1,6 +1,6 @@
 package io.nfteam.nftlab.services;
 
-import io.nfteam.nftlab.contracts.NFTLabStore;
+import io.nfteam.nftlab.contracts.NFTLabStoreEthereum;
 import io.nfteam.nftlab.services.ipfs.IPFSResponses;
 import io.nfteam.nftlab.services.ipfs.IPFSService;
 import io.nfteam.nftlab.services.smartcontract.NFTID;
@@ -65,7 +65,7 @@ class NFTDummyContractServiceTest {
   public void getNFTById() throws Exception {
     NFTContractService service = new NFTDummyContractService(ipfsService);
 
-    NFTLabStore.NFTLab actualNFT = service.getNFTById(null);
+    NFTLabStoreEthereum.NFTLab actualNFT = (NFTLabStoreEthereum.NFTLab) service.getNFTById(null);
 
     assertNull(actualNFT);
   }
@@ -74,7 +74,7 @@ class NFTDummyContractServiceTest {
   public void getNFTByHash() throws Exception {
     NFTContractService service = new NFTDummyContractService(ipfsService);
 
-    NFTLabStore.NFTLab actualNFT = service.getNFTByHash(null);
+    NFTLabStoreEthereum.NFTLab actualNFT = (NFTLabStoreEthereum.NFTLab) service.getNFTByHash(null);
 
     assertNull(actualNFT);
   }
