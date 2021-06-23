@@ -6,16 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="smart-contract-ethereum-web3j-integration" />
+        <module name="smart-contract-integration" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="smart-contract-ethereum-web3j-integration" target="16" />
+      <module name="smart-contract-integration" target="16" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="smart-contract-ethereum-web3j-integration" options="--enable-preview" />
+      <module name="smart-contract-integration" options="--enable-preview" />
     </option>
   </component>
 </project>
