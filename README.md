@@ -59,6 +59,17 @@ La seguente repository contiene la libreria che permette la comunicazione da jav
 
 In questo modo si permetterà a maven di accedere alla repository maven di github.
 
+3. Eseguire i seguenti comandi per installare Hotmoka 1.0.0:
+
+   ```bash
+   $ git clone https://github.com/Hotmoka/hotmoka.git
+   $ cd hotmoka
+   $ git checkout 1.0.0
+   $ mvn cleaninstall
+   ```
+
+   
+
 ## Organizzazione della repository
 
 ```bash
@@ -126,7 +137,7 @@ Classe che gestisce l'interazione con la blockchain Ethereum. Viene autogenerata
 Esempio di esecuzione:
 
 ```bash
-./sol-to-java.sh ./smart-contract-ethereum/contracts/NFTLabStore.sol
+$ ./sol-to-java.sh ./smart-contract-ethereum/contracts/NFTLabStore.sol
 ```
 
 ##### NFTLabStoreHotmoka
