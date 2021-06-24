@@ -3,8 +3,8 @@ package io.nfteam.nftlab.services;
 import io.hotmoka.beans.values.StorageReference;
 import io.nfteam.nftlab.contracts.NFTLabStoreEthereum;
 import io.nfteam.nftlab.contracts.NFTLabStoreHotmoka;
-import io.nfteam.nftlab.services.ipfs.IPFSResponses;
 import io.nfteam.nftlab.services.ipfs.IPFSService;
+import io.nfteam.nftlab.services.ipfs.pinataresponses.Uploaded;
 import io.nfteam.nftlab.services.smartcontract.NFTID;
 import io.nfteam.nftlab.services.smartcontract.UserTuple;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class NFTHotmokaContractServiceTest {
   @Mock
   private IPFSService ipfsService;
   @Mock
-  private IPFSResponses.Uploaded uploaded;
+  private Uploaded uploaded;
   @Mock
   private ByteArrayResource file;
 

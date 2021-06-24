@@ -1,8 +1,8 @@
 package io.nfteam.nftlab.services;
 
 import io.nfteam.nftlab.contracts.NFTLabStoreHotmoka;
-import io.nfteam.nftlab.services.ipfs.IPFSResponses;
 import io.nfteam.nftlab.services.ipfs.IPFSService;
+import io.nfteam.nftlab.services.ipfs.pinataresponses.Uploaded;
 import io.nfteam.nftlab.services.smartcontract.NFTID;
 import io.nfteam.nftlab.services.smartcontract.UserTuple;
 import org.springframework.core.io.ByteArrayResource;
@@ -22,7 +22,7 @@ public class NFTHotmokaContractService implements NFTContractService {
 
   @Override
   public NFTID mint(UserTuple artist, ByteArrayResource file) throws Exception {
-    IPFSResponses.Uploaded uploadedImage = ipfsService.upload(file);
+    Uploaded uploadedImage = ipfsService.upload(file);
 
     String hash = uploadedImage.getHash();
     String timestamp = uploadedImage.getTimestamp();

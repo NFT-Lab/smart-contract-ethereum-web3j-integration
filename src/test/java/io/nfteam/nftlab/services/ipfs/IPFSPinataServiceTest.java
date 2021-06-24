@@ -1,5 +1,7 @@
 package io.nfteam.nftlab.services.ipfs;
 
+import io.nfteam.nftlab.services.ipfs.pinataresponses.PinataUploaded;
+import io.nfteam.nftlab.services.ipfs.pinataresponses.Uploaded;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -39,7 +41,7 @@ class IPFSPinataServiceTest {
   }
 
   @Test
-  public void uploadImage_ValidImage_UploadedImage() throws IOException {
+  public void upload_ValidFile_UploadedData() throws IOException {
     String baseUrl = "localhost:3000";
     String apiKey = "";
     String secretKey = "";
@@ -60,7 +62,7 @@ class IPFSPinataServiceTest {
 
     IPFSPinataService ipfsPinataService = new IPFSPinataService(baseUrl, apiKey, secretKey, restTemplate);
 
-    IPFSResponses.Uploaded actualUploadedImage = ipfsPinataService.upload(file);
+    Uploaded actualUploadedImage = ipfsPinataService.upload(file);
 
     assertEquals(expectedUploadedImage.getHash(), actualUploadedImage.getHash());
     assertEquals(expectedUploadedImage.getSize(), actualUploadedImage.getSize());

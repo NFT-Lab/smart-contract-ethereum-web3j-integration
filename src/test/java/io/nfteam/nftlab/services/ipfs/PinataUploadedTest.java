@@ -1,5 +1,6 @@
 package io.nfteam.nftlab.services.ipfs;
 
+import io.nfteam.nftlab.services.ipfs.pinataresponses.PinataUploaded;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
