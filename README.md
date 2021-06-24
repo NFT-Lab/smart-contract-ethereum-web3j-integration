@@ -65,7 +65,7 @@ In questo modo si permetterà a maven di accedere alla repository maven di githu
    $ git clone https://github.com/Hotmoka/hotmoka.git
    $ cd hotmoka
    $ git checkout 1.0.0
-   $ mvn cleaninstall
+   $ mvn install
    ```
 
    
