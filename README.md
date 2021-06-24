@@ -92,10 +92,11 @@ La seguente repository contiene la libreria che permette la comunicazione da jav
     │                   │   └── NFTLabStoreHotmoka.java
     │                   └── services
     │                       ├── ipfs
-    │                       │   ├── PinataUploaded.java
     │                       │   ├── IPFSPinataService.java
-    │                       │   ├── IPFSUploaded.java
-    │                       │   └── IPFSService.java
+    │                       │   ├── IPFSService.java
+    │                       │   └── pinataresponses
+    │                       │       ├── PinataUploaded.java
+    │                       │       └── Uploaded.java
     │                       ├── NFTContractService.java
     │                       ├── NFTDummyContractService.java
     │                       ├── NFTETHContractService.java
