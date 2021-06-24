@@ -1,0 +1,104 @@
+classDiagram
+  class INFTLab
+  <<interface>> INFTLab
+
+  class INFTTransaction
+  <<interface>> INFTTransaction
+
+  class HotmokaIntegration {
+    #StorageReference account
+    #Node node
+    #String chainId
+    -Signer signer
+
+    #HotmokaIntegration(String url, String accountAddress)
+    #addJarStoreInitialTransaction(byte[] jar, TransactionReference... dependencies) TransactionReference
+    #addJarStoreTransaction(BigInteger gasLimit, BigInteger gasPrice, TransactionReference classpath, byte[] jar, TransactionReference... dependencies) TransactionReference
+    #addConstructorCallTransaction(BigInteger gasLimit, BigInteger gasPrice, TransactionReference classpath, ConstructorSignature constructor, StorageValue... actuals) StorageReference
+    #addInstanceMethodCallTransaction(BigInteger gasLimit, BigInteger gasPrice, TransactionReference classpath, MethodSignature method, StorageReference receiver, StorageValue... actuals) StorageValue
+    #addStaticMethodCallTransaction(BigInteger gasLimit, BigInteger gasPrice, TransactionReference classpath, MethodSignature method, StorageValue... actuals) StorageValue
+    #runInstanceMethodCallTransaction(BigInteger gasLimit, TransactionReference classpath, MethodSignature method, StorageReference receiver, StorageValue... actuals) StorageValue
+    #runStaticMethodCallTransaction(BigInteger gasLimit, TransactionReference classpath, MethodSignature method, StorageValue... actuals) StorageValue
+    #postJarStoreTransaction(BigInteger gasLimit, BigInteger gasPrice, TransactionReference classpath, byte[] jar, TransactionReference... dependencies) JarSupplier
+    #postInstanceMethodCallTransaction(BigInteger gasLimit, BigInteger gasPrice, TransactionReference classpath, MethodSignature method, StorageReference receiver, StorageValue... actuals) CodeSupplier~StorageValue~
+    #postConstructorCallTransaction(BigInteger gasLimit, BigInteger gasPrice, TransactionReference classpath, ConstructorSignature constructor, StorageValue... actuals) CodeSupplier~StorageReference~
+    #takamakaCode() TransactionReference
+  }
+
+  class NFTLabStoreHotmoka {
+    -BigInteger defaultGasLimit
+    -BigInteger defaultGasPrice
+
+    -TransactionReference classpath
+    -StorageReference nftLabStore
+
+    +NLabStoreHotmoka(String url, String accountAddress, BigInteger defaultGasLimit, BigInteger defaultGasPrice)
+    
+    +mint(String artist, BigInteger artistId, String hash, String timestamp) BigInteger
+    +mint(String artist, BigInteger artistId, String hash, String timestamp, BigInteger gasLimit, BigInteger gasPrice) BigInteger
+
+    +transfer( BigInteger tokenId, String seller, BigInteger sellerId, String buyer, BigInteger buyerId, String price, String timestamp) boolean
+    +transfer( BigInteger tokenId, String seller, BigInteger sellerId, String buyer, BigInteger buyerId, String price, String timestamp, BigInteger gasLimit, BigInteger gasPrice) boolean
+
+    +getHistory(BigInteger tokenId) List~NFTTransaction~
+    +getHistory(BigInteger tokenId, BigInteger gasLimit, BigInteger gasPrice) List~NFTTransaction~
+
+    +getNFTByHash(String hash) NFTLab
+    +getNFTByHash(String hash, BigInteger gasLimit, BigInteger gasPrice) NFTLab
+
+    +getNFTById(BigInteger tokenId) NFTLab
+    +getNFTById(BigInteger tokenId, BigInteger gasLimit, BigInteger gasPrice) NFTLab
+
+    +getClasspath() TransactionReference
+    +getNftLabStore() StorageReference
+
+    +load(String url, String accountAddress, BigInteger defaultGasLimit, BigInteger defaultGasPrice, String classpath, String nftLabStoreAddress) NFTLabStoreHotmoka 
+
+    +deploy(String url, String accountAddress, BigInteger defaultGasLimit, BigInteger defaultGasPrice, Path smartContractCodePath, Path erc721CodePath, String name, String symbol) NFTLabStoreHotmoka
+  }
+
+  NFTLabStoreHotmoka --|> HotmokaIntegration
+  NFTLabStoreHotmoka ..> NFTLabStoreHotmokaMethods
+  NFTLabStoreHotmoka ..> NFTLab
+  NFTLabStoreHotmoka ..> NFTTransaction
+
+  class NFTLabStoreHotmokaMethods {
+    +ClassType NFTLabStore
+    +ClassType NFTLab
+    +ClassType NFTTransaction
+    +ConstructorSignature CONSTRUCTOR_NFTLABSTORE_STR_STR
+
+    +NonVoidMethodSignature mint
+    +NonVoidMethodSignature transfer
+    +NonVoidMethodSignature getHistory
+    +NonVoidMethodSignature getNFTByHash
+    +NonVoidMethodSignature getNFTById
+  }
+
+  class NFTLab {
+    -StorageReference artist
+    -BigInteger artistId
+    -String hash
+    -String timestamp
+
+    +NFTLab(StorageReference artist, BigInteger artistId, String hash, String timestamp)
+    +NFTLab(StorageReference nft)
+  }
+
+  NFTLab ..|> INFTLab
+
+  class NFTTransaction {
+    -BigInteger tokenId
+    -StorageReference seller
+    -BigInteger sellerId
+    -StorageReference buyer
+    -BigInteger buyerId
+    -String price
+    -String timestamp
+
+    +NFTTransaction(BigInteger tokenId, StorageReference seller, BigInteger sellerId, StorageReference buyer, BigInteger buyerId, String price, String timestamp)
+    +NFTTransaction(StorageReference transaction)
+  }
+
+  NFTTransaction ..|> INFTTransaction
+

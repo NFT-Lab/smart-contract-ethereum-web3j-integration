@@ -14,11 +14,11 @@ import java.util.List;
 
 public class NFTETHContractService implements NFTContractService {
   private final IPFSService ipfsService;
-  private final NFTLabStoreEthereum nftLabStoreEthereum;
+  private final NFTLabStoreEthereum contractService;
 
   public NFTETHContractService(NFTLabStoreEthereum contractService, IPFSService ipfsService)
   {
-    this.nftLabStoreEthereum = contractService;
+    this.contractService = contractService;
     this.ipfsService = ipfsService;
   }
 
@@ -30,8 +30,8 @@ public class NFTETHContractService implements NFTContractService {
 
     NFTLabStoreEthereum.NFTLab newNft = new NFTLabStoreEthereum.NFTLab(artist.wallet(), artist.id(), hash, timestamp);
 
-    nftLabStoreEthereum.mint(newNft).send();
-    BigInteger tokenId = nftLabStoreEthereum.getTokenId(newNft.hash).send();
+    contractService.mint(newNft).send();
+    BigInteger tokenId = contractService.getTokenId(newNft.hash).send();
 
     return new NFTID(hash, tokenId);
   }
@@ -45,19 +45,19 @@ public class NFTETHContractService implements NFTContractService {
   {
     NFTLabStoreEthereum.NFTTransaction transaction = new NFTLabStoreEthereum.NFTTransaction(tokenId, seller.wallet(), seller.id(), buyer.wallet(), buyer.id(), price, timestamp);
 
-    nftLabStoreEthereum.transfer(transaction).send();
+    contractService.transfer(transaction).send();
   }
 
   public List getHistory(BigInteger tokenId) throws Exception {
-    return nftLabStoreEthereum.getHistory(tokenId).send();
+    return contractService.getHistory(tokenId).send();
   }
 
   public NFTLabStoreEthereum.NFTLab getNFTById(BigInteger tokenId) throws Exception {
-    return this.nftLabStoreEthereum.getNFTById(tokenId).send();
+    return this.contractService.getNFTById(tokenId).send();
   }
 
   public NFTLabStoreEthereum.NFTLab getNFTByHash(String hash) throws Exception {
-    return this.nftLabStoreEthereum.getNFTByHash(hash).send();
+    return this.contractService.getNFTByHash(hash).send();
   }
 
   public static NFTLabStoreEthereum deploy(
@@ -75,7 +75,11 @@ public class NFTETHContractService implements NFTContractService {
     ).send();
   }
 
-  public static NFTLabStoreEthereum load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider){
+  public static NFTLabStoreEthereum load(
+    String contractAddress,
+    Web3j web3j,
+    Credentials credentials,
+    ContractGasProvider contractGasProvider) {
     return NFTLabStoreEthereum.load(
       contractAddress,
       web3j,

@@ -1,0 +1,140 @@
+classDiagram
+  class NFTLabStoreEthereum
+  class NFTLabStoreHotmoka
+
+  class NFTContractService {
+    +mint(UserTuple artist, ByteArrayResource file) NFTID
+    
+    +transfer(BigInteger tokenId, UserTuple seller, UserTuple buyer, String price, String timestamp)
+
+    +getHistory(BigInteger tokenId) List~INFTTransaction~
+
+    +getNFTById(BigInteger tokenId) INFTLab
+
+    +getNFTByHash(String hash) INFTLab
+  }
+  <<interface>> NFTContractService
+
+  NFTContractService ..> INFTLab
+  NFTContractService ..> INFTTransaction
+  NFTContractService ..> NFTID
+  NFTContractService ..> UserTuple
+
+  class INFTLab
+  <<interface>> INFTLab
+  
+  class INFTTransaction
+  <<interface>> INFTTransaction
+
+  class NFTID {
+    -String hash
+    -BigInteger tokenId
+
+    +NFTID(String hash, BigInteger tokenId)
+    +hash() String
+    +tokenId() BigInteger
+  }
+
+  class UserTuple {
+    -String wallet
+    -BigInteger id
+
+    +UserTuple(String wallet, BigInteger id)
+    +wallet() String
+    +id() BigInteger
+  }
+
+  class NFTDummyContractService {
+    +NFTDummyContractService(IPFSService ipfsService)
+
+    +mint(UserTuple artist, ByteArrayResource file) NFTID
+    
+    +transfer(BigInteger tokenId, UserTuple seller, UserTuple buyer, String price, String timestamp)
+
+    +getHistory(BigInteger tokenId) List~INFTTransaction~
+
+    +getNFTById(BigInteger tokenId) INFTLab
+
+    +getNFTByHash(String hash) INFTLab
+  }
+
+  NFTDummyContractService ..|> NFTContractService
+  NFTDummyContractService --> IPFSService : ipfsService
+
+  class NFTETHContractService {
+    NFTETHContractService(NFTLabStoreEthereum contractService, IPFSService ipfsService)
+
+    +mint(UserTuple artist, ByteArrayResource file) NFTID
+    
+    +transfer(BigInteger tokenId, UserTuple seller, UserTuple buyer, String price, String timestamp)
+
+    +getHistory(BigInteger tokenId) List~INFTTransaction~
+
+    +getNFTById(BigInteger tokenId) INFTLab
+
+    +getNFTByHash(String hash) INFTLab
+
+    +load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider)$ NFTLabStoreEthereum
+    +deploy(Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider, String name, String symbol)$ NFTLabStoreEthereum
+  }
+
+  NFTETHContractService ..|> NFTContractService
+  NFTETHContractService --> IPFSService : ipfsService
+  NFTETHContractService --> NFTLabStoreEthereum : contractService
+
+
+  class NFTHotmokaContractService {
+    +mint(UserTuple artist, ByteArrayResource file) NFTID
+    
+    +transfer(BigInteger tokenId, UserTuple seller, UserTuple buyer, String price, String timestamp)
+
+    +getHistory(BigInteger tokenId) List~INFTTransaction~
+
+    +getNFTById(BigInteger tokenId) INFTLab
+
+    +getNFTByHash(String hash) INFTLab
+
+    +load(String url, String accountAddress, BigInteger defaultGasLimit, BigInteger defaultGasPrice, String classpath, String nftLabStoreAddress)$ NFTLabStoreHotmoka
+    +deploy(String url, String accountAddress, BigInteger defaultGasLimit, BigInteger defaultGasPrice, String smartContractHotmokaPath, String erc721HotmokaPath, String name, String symbol)$ NFTLabStoreHotmoka
+  }
+
+  NFTHotmokaContractService ..|> NFTContractService
+  NFTHotmokaContractService --> IPFSService : ipfsService
+  NFTHotmokaContractService --> NFTLabStoreHotmoka : contractService
+
+
+  class IPFSService {
+    +upload(ByteArrayResource file) Uploaded
+  }
+  <<interface>> IPFSService
+
+  IPFSService ..> Uploaded
+
+  class IPFSPinataService {
+    -String baseUrl
+    -String apiKey
+    -String secretKey
+    -RestTemplate restTemplate
+
+    +IPFSPinataService(String baseUrl, String apiKey, String secretKey, RestTemplate restTemplate)
+
+    +upload(ByteArrayResource file) Uploaded
+    -getHeader() HttpHeaders
+  }
+
+    IPFSPinataService ..|> IPFSService
+
+  class Uploaded {
+    +getHash() String
+    +getSize() int
+    +getTimestamp() String
+  }
+  <<interface>> Uploaded
+
+  class PinataUploaded {
+    +String IpfsHash
+    +int PinSize
+    +String Timestamp
+  }
+
+  PinataUploaded ..|> Uploaded
