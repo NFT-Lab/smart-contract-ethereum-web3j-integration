@@ -1,8 +1,8 @@
 package io.nfteam.nftlab.services;
 
 import io.nfteam.nftlab.contracts.NFTLabStoreEthereum;
-import io.nfteam.nftlab.services.ipfs.IPFSResponses;
 import io.nfteam.nftlab.services.ipfs.IPFSService;
+import io.nfteam.nftlab.services.ipfs.pinataresponses.Uploaded;
 import io.nfteam.nftlab.services.smartcontract.*;
 import org.springframework.core.io.ByteArrayResource;
 import org.web3j.crypto.Credentials;
@@ -24,7 +24,7 @@ public class NFTETHContractService implements NFTContractService {
 
   public NFTID mint(UserTuple artist, ByteArrayResource file) throws Exception
   {
-    IPFSResponses.Uploaded uploadedImage = ipfsService.upload(file);
+    Uploaded uploadedImage = ipfsService.upload(file);
     String hash = uploadedImage.getHash();
     String timestamp = uploadedImage.getTimestamp();
 

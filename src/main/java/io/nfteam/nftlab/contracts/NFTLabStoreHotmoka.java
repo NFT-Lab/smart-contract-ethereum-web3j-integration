@@ -213,51 +213,7 @@ public class NFTLabStoreHotmoka extends HotmokaIntegration {
       tokenIdRef
     );
 
-    StorageReference artist = (StorageReference) runInstanceMethodCallTransaction(
-      defaultGasLimit,
-      classpath,
-      new NonVoidMethodSignature(
-        NFTLab,
-        "getArtist",
-        ClassType.CONTRACT
-      ),
-      nft
-    );
-
-    BigIntegerValue artistId = (BigIntegerValue) runInstanceMethodCallTransaction(
-      defaultGasLimit,
-      classpath,
-      new NonVoidMethodSignature(
-        NFTLab,
-        "getArtistId",
-        ClassType.BIG_INTEGER
-      ),
-      nft
-    );
-
-    StringValue hash = (StringValue) runInstanceMethodCallTransaction(
-      defaultGasLimit,
-      classpath,
-      new NonVoidMethodSignature(
-        NFTLab,
-        "getHash",
-        ClassType.STRING
-      ),
-      nft
-    );
-
-    StringValue timestamp = (StringValue) runInstanceMethodCallTransaction(
-      defaultGasLimit,
-      classpath,
-      new NonVoidMethodSignature(
-        NFTLab,
-        "getTimestamp",
-        ClassType.STRING
-      ),
-      nft
-    );
-
-    return new NFTLab(artist, artistId.value, hash.value, timestamp.value);
+    return new NFTLab(nft);
   }
 
   protected void setClasspath(TransactionReference classpath) {
@@ -450,7 +406,7 @@ public class NFTLabStoreHotmoka extends HotmokaIntegration {
       this.timestamp = timestamp;
     }
 
-    public NFTTransaction(StorageReference transaction) throws TransactionRejectedException, SignatureException, InvalidKeyException, TransactionException, CodeExecutionException {
+    public NFTTransaction(StorageReference transaction) throws TransactionRejectedException, TransactionException, CodeExecutionException {
       BigIntegerValue tokenId = (BigIntegerValue) runInstanceMethodCallTransaction(
         defaultGasLimit,
         classpath,
